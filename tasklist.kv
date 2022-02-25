@@ -7,21 +7,24 @@
 # yellow color: 1, 0.76, 0.03, 1
 
 <CheckButton@Button>:
-    text: ''
+    text: '裸' # or 陼
     font_name: 'Noto'
     font_size: 36
     background_normal: ''
     background_down: ''
     background_color: 0.204, 0.227, 0.251, 1
-    size_hint: 0.15, 1
-    on_press: self.click()
+    color: 0.424, 0.459, 0.49, 1
+    size_hint: 0.1, 1
+    on_press: root.remove_task()
 
 <TaskLabel@Label>:
-    valign: 'middle'
+    markup: True
+    valign: 'top'
     halign: 'left'
     text_size: self.size
     font_name: 'Noto'
     font_size: 30
+    color: 0.914, 0.925, 0.937, 1
 
 <MainLayout>:
     BoxLayout:
@@ -36,6 +39,7 @@
             size: self.size
 
             GridLayout:
+                id: tasks_layout
                 size_hint_y: None
                 cols: 2
                 row_default_height: '48dp'
@@ -44,25 +48,25 @@
                 padding: 0, 0
 
                 CheckButton:
-                    id: button_1
+                    task_btn_id: 1
 
                 TaskLabel:
                     text: 'Task 1'
-                    task_id: 1
+                    id: task_1
 
                 CheckButton:
-                    id: button_2
+                    task_btn_id: 2
 
                 TaskLabel:
                     text: 'Task 2'
-                    task_id: 2
+                    id: task_2
 
                 CheckButton:
-                    id: button_3
+                    task_btn_id: 3
 
                 TaskLabel:
                     text: 'Task 3'
-                    task_id: 3           
+                    id: task_3           
 
         Button:
             id: add_task_btn
