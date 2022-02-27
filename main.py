@@ -6,6 +6,8 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty
 
+import tasks_handler
+
 # Register Noto Nerd Font
 LabelBase.register(
     name = 'Noto',
@@ -25,7 +27,30 @@ class TaskLabel(Label):
     pass
 
 class MainScreen(Screen):
+    def setup(self):
+        # Get tasks from the json
+        tasks = tasks_handler.get_tasks()
+
+        if tasks:
+            for index, text in tasks:
+                # Pick the GridLayout
+                layout = self.ids.tasks_layout
+
+                # Add the CheckButton for the task
+                layout.add_widget(CheckButton(task_btn_id=index))
+
+                # Add the TaskLabel for the task
+                task_label = TaskLabel(text=text)
+                layout.add_widget(task_label)
+
+                # Update the ids dictionary with the new task
+                self.ids[f'task_{index}'] = task_label
+
+        else:
+            screen_manager.current = 'add_task_screen'
+
     def remove_task(self, task_btn, btn_id):
+        print(btn_id, self.ids)
         # Get the label of the task
         task_label = self.ids.get(f'task_{btn_id}')
 
@@ -37,24 +62,33 @@ class MainScreen(Screen):
         task_label.color = 0.424, 0.459, 0.49, 1
         task_label.text = f'[s]{task_label.text}[/s]'
 
+        # Remove task from the json
+        tasks_handler.remove_task(btn_id)
+        task_btn.disabled = True
+
     def add_task(self, task_text):
         # Pick the GridLayout
         layout = self.ids.tasks_layout
 
         # Get the last task id
-        last_id = self.get_last_id()
+        new_id = self.get_last_id() + 1
 
         # Add the CheckButton for the task
-        layout.add_widget(CheckButton(task_btn_id=last_id+1))
+        layout.add_widget(CheckButton(task_btn_id=new_id))
 
         # Add the TaskLabel for the task
         task_label = TaskLabel(text=task_text)
         layout.add_widget(task_label)
 
         # Update the ids dictionary with the new task
-        self.ids[f'task_{last_id+1}'] = task_label
+        self.ids[f'task_{new_id}'] = task_label
 
-    def get_last_id(self):
+        # Add task to the json
+        tasks_handler.add_task(new_id, task_text)
+
+        print(self.ids)
+
+    def get_last_id(self) -> int:
         if len(self.ids) <= 1:
             return 0
 
@@ -89,15 +123,17 @@ class TasklistApp(App):
         # Make dark background
         Window.clearcolor = (0.204, 0.227, 0.251, 1)
 
-        main_screen = MainScreen(name='main_screen')
+        screen_manager = ScreenManager()        
 
-        screen_manager = ScreenManager()
+        # Initialize the main screen class
+        main_screen = MainScreen(name='main_screen')
 
         # Add the screens to the manager
         screen_manager.add_widget(main_screen)
         screen_manager.add_widget(AddTaskScreen(name='add_task_screen'))
 
-        screen_manager.current = 'add_task_screen'
+        # Make the initial setup
+        main_screen.setup()
 
         return screen_manager
 
