@@ -14,7 +14,12 @@ import tasks_handler
 LabelBase.register(
     name = 'Noto',
     fn_regular = 'fonts/Noto Sans Display Regular Nerd Font Complete.ttf',
-    fn_bold = 'fonts/Noto Sans Medium Nerd Font Complete.ttf',
+    fn_bold = 'fonts/Noto Sans Display Bold Nerd Font Complete.ttf',
+)
+
+LabelBase.register(
+    name = 'Noto Buttons',
+    fn_regular = 'fonts/Noto Sans Medium Nerd Font Complete.ttf',
 )
 
 class CheckButton(Button):
