@@ -4,10 +4,9 @@
 # foreground: 0.914, 0.925, 0.937, 1
 # red color: 0.86, 0.21, 0.27, 1
 # green color: 0.09, 0.53, 0.33, 1
-# yellow color: 1, 0.76, 0.03, 1
 
 <CheckButton@Button>:
-    text: '裸' # or 陼
+    text: '裸'
     font_name: 'Noto'
     font_size: 36
     background_normal: ''
@@ -56,27 +55,6 @@
                 spacing: 0, 10
                 padding: 0, 0
 
-                CheckButton:
-                    task_btn_id: 1
-
-                TaskLabel:
-                    text: 'Task 1'
-                    id: task_1
-
-                CheckButton:
-                    task_btn_id: 2
-
-                TaskLabel:
-                    text: 'Task 2'
-                    id: task_2
-
-                CheckButton:
-                    task_btn_id: 3
-
-                TaskLabel:
-                    text: 'Task 3'
-                    id: task_3           
-
         BigButton:
             text: ' Nueva tarea'
             background_color: 0.09, 0.53, 0.33, 1
@@ -90,8 +68,30 @@
         orientation: 'vertical'
         size: root.size
 
-        Label:
-            text: 'AddTaskLabel'
+        FloatLayout:
+            Label:
+                text: 'Contenido de la tarea'
+                font_name: 'Noto'
+                font_size: 30
+                color: 0.914, 0.925, 0.937, 1
+                size_hint: 1, 0.15
+                pos_hint: {'top': 0.95}
+
+            TextInput:
+                id: new_task_name
+
+                font_name: 'Noto'
+                font_size: 30
+                foreground_color: 0.204, 0.227, 0.251, 1 
+                background_color: 0.914, 0.925, 0.937, 1
+                cursor_color: 0.86, 0.21, 0.27, 1
+                cursor_width: '2sp'
+
+                size_hint: 0.9, 0.06
+                pos_hint: {'top': 0.825, 'center_x': 0.5}
+                multiline: False
+                focus: True
+                on_text_validate: root.add_task()
 
         BoxLayout:
             orientation: 'horizontal'
@@ -102,8 +102,7 @@
                 background_color: 0.09, 0.53, 0.33, 1
                 size_hint: 1,1
 
-                on_release:
-                    root.add_task()
+                on_release: root.add_task()
 
             BigButton:
                 text: ' Cancelar'
