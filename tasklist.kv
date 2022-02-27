@@ -15,7 +15,7 @@
     background_color: 0.204, 0.227, 0.251, 1
     color: 0.424, 0.459, 0.49, 1
     size_hint: 0.1, 1
-    on_press: root.remove_task()
+    on_release: root.remove_task()
 
 <TaskLabel@Label>:
     markup: True
@@ -26,7 +26,16 @@
     font_size: 30
     color: 0.914, 0.925, 0.937, 1
 
-<MainLayout>:
+<BigButton@Button>:
+    font_name: 'Noto'
+    font_size: 52
+    bold: True
+    size_hint: 1, 0.15
+    background_normal: ''
+    background_down: ''
+    color: 0.914, 0.925, 0.937, 1
+
+<MainScreen>:
     BoxLayout:
         orientation: 'vertical'
         padding: 0, 30, 0, 0
@@ -68,16 +77,39 @@
                     text: 'Task 3'
                     id: task_3           
 
-        Button:
-            id: add_task_btn
+        BigButton:
             text: ' Nueva tarea'
-            font_name: 'Noto'
-            font_size: 52
-            bold: True
-            size_hint: 1, 0.15
-            background_normal: ''
-            background_down: ''
             background_color: 0.09, 0.53, 0.33, 1
-            color: 0.914, 0.925, 0.937, 1
 
-            on_press: root.add_task()
+            on_release:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'add_task_screen'
+
+<AddTaskScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        Label:
+            text: 'AddTaskLabel'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.15
+
+            BigButton:
+                text: ' Añadir'
+                background_color: 0.09, 0.53, 0.33, 1
+                size_hint: 1,1
+
+                on_release:
+                    root.add_task()
+
+            BigButton:
+                text: ' Cancelar'
+                background_color: 0.86, 0.21, 0.27, 1
+                size_hint: 1,1
+
+                on_release:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'main_screen'
