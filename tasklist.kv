@@ -63,6 +63,7 @@
             on_release:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'add_task_screen'
+                root.manager.get_screen('add_task_screen').ids['new_task_name'].focus = True
 
 <AddTaskScreen>:
     BoxLayout:
