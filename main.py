@@ -1,3 +1,5 @@
+#!env/bin/python
+
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -50,7 +52,6 @@ class MainScreen(Screen):
             screen_manager.current = 'add_task_screen'
 
     def remove_task(self, task_btn, btn_id):
-        print(btn_id, self.ids)
         # Get the label of the task
         task_label = self.ids.get(f'task_{btn_id}')
 
@@ -85,8 +86,6 @@ class MainScreen(Screen):
 
         # Add task to the json
         tasks_handler.add_task(new_id, task_text)
-
-        print(self.ids)
 
     def get_last_id(self) -> int:
         if len(self.ids) <= 1:
