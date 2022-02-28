@@ -38,7 +38,7 @@
 <MainScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 0, 30, 0, 0
+        padding: 0, 35, 0, 0
         row_default_height: '48dp'
         row_force_default: True
         spacing: 0, 10
@@ -65,52 +65,103 @@
                 root.manager.current = 'add_task_screen'
                 root.manager.get_screen('add_task_screen').ids['new_task_name'].focus = True
 
+# <AddTaskScreen>:
+#     BoxLayout:
+#         orientation: 'vertical'
+#         size: root.size
+
+#         FloatLayout:
+#             Label:
+#                 text: 'Contenido de la tarea'
+#                 font_name: 'Noto'
+#                 font_size: 30
+#                 color: 0.914, 0.925, 0.937, 1
+#                 size_hint: 1, 0.15
+#                 pos_hint: {'top': 0.95}
+
+#             TextInput:
+#                 id: new_task_name
+
+#                 font_name: 'Noto'
+#                 font_size: 30
+#                 foreground_color: 0.204, 0.227, 0.251, 1 
+#                 background_color: 0.914, 0.925, 0.937, 1
+#                 cursor_color: 0.86, 0.21, 0.27, 1
+#                 cursor_width: '2sp'
+
+#                 size_hint: 0.9, 0.06
+#                 pos_hint: {'top': 0.825, 'center_x': 0.5}
+#                 multiline: False
+#                 focus: True
+#                 on_text_validate: root.add_task()
+
+#         BoxLayout:
+#             orientation: 'horizontal'
+#             size_hint: 1, 0.15
+
+#             BigButton:
+#                 text: ' Añadir'
+#                 background_color: 0.09, 0.53, 0.33, 1
+#                 size_hint: 1,1
+
+#                 on_release: root.add_task()
+
+#             BigButton:
+#                 text: ' Cancelar'
+#                 background_color: 0.86, 0.21, 0.27, 1
+#                 size_hint: 1,1
+
+#                 on_release:
+#                     root.manager.transition.direction = 'right'
+#                     root.manager.current = 'main_screen'
+
+# 
+
 <AddTaskScreen>:
-    BoxLayout:
-        orientation: 'vertical'
+    FloatLayout:
         size: root.size
 
-        FloatLayout:
-            Label:
-                text: 'Contenido de la tarea'
-                font_name: 'Noto'
-                font_size: 30
-                color: 0.914, 0.925, 0.937, 1
-                size_hint: 1, 0.15
-                pos_hint: {'top': 0.95}
+        Button:
+            text: ''
+            font_name: 'Noto Buttons'
+            font_size: 45
+            background_normal: ''
+            background_down: ''
+            background_color: 0.204, 0.227, 0.251, 1
+            color: 0.424, 0.459, 0.49, 1
+            size_hint: 0.1, 0.1
+            pos_hint: {'top': 1, 'x': 0}
 
-            TextInput:
-                id: new_task_name
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'main_screen'
 
-                font_name: 'Noto'
-                font_size: 30
-                foreground_color: 0.204, 0.227, 0.251, 1 
-                background_color: 0.914, 0.925, 0.937, 1
-                cursor_color: 0.86, 0.21, 0.27, 1
-                cursor_width: '2sp'
-
-                size_hint: 0.9, 0.06
-                pos_hint: {'top': 0.825, 'center_x': 0.5}
-                multiline: False
-                focus: True
-                on_text_validate: root.add_task()
-
-        BoxLayout:
-            orientation: 'horizontal'
+        Label:
+            text: 'Contenido de la tarea'
+            font_name: 'Noto'
+            font_size: 30
+            color: 0.914, 0.925, 0.937, 1
             size_hint: 1, 0.15
+            pos_hint: {'top': 0.94}
 
-            BigButton:
-                text: ' Añadir'
-                background_color: 0.09, 0.53, 0.33, 1
-                size_hint: 1,1
+        TextInput:
+            id: new_task_name
+            font_name: 'Noto'
+            font_size: 30
+            foreground_color: 0.204, 0.227, 0.251, 1 
+            background_color: 0.914, 0.925, 0.937, 1
+            cursor_color: 0.86, 0.21, 0.27, 1
+            cursor_width: '2sp'
+            size_hint: 0.9, 0.06
+            pos_hint: {'top': 0.825, 'center_x': 0.5}
+            multiline: False
+            focus: True
+            padding: [12, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines)]
+            on_text_validate: root.add_task()
 
-                on_release: root.add_task()
-
-            BigButton:
-                text: ' Cancelar'
-                background_color: 0.86, 0.21, 0.27, 1
-                size_hint: 1,1
-
-                on_release:
-                    root.manager.transition.direction = 'right'
-                    root.manager.current = 'main_screen'
+        BigButton:
+            text: ' Añadir'
+            background_color: 0.09, 0.53, 0.33, 1
+            size_hint: 1, 0.125
+            pos_hint: {'bottom': 0.9}
+            on_release: root.add_task()
