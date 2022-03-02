@@ -4,6 +4,7 @@
 # foreground: 0.914, 0.925, 0.937, 1
 # red color: 0.86, 0.21, 0.27, 1
 # green color: 0.09, 0.53, 0.33, 1
+# yellow color: 1, 0.757, 0.027, 1
 
 <CheckButton@Button>:
     text: '裸'
@@ -25,6 +26,15 @@
     font_name: 'Noto'
     font_size: 30
     color: 0.914, 0.925, 0.937, 1
+
+<CategoryLabel@Label>:
+    markup: True
+    valign: 'top'
+    halign: 'center'
+    text_size: self.size
+    font_name: 'Noto'
+    font_size: 30
+    size_hint: 0.175, 1
 
 <BigButton@Button>:
     font_name: 'Noto Buttons'
@@ -50,7 +60,7 @@
             GridLayout:
                 id: tasks_layout
                 size_hint_y: None
-                cols: 2
+                cols: 3
                 row_default_height: '48dp'
                 row_force_default: True
                 spacing: 0, 10
@@ -106,6 +116,48 @@
             focus: True
             padding: [12, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines)]
             on_text_validate: root.add_task()
+
+        Label:
+            text: 'Categoría de la tarea'
+            font_name: 'Noto'
+            font_size: 30
+            color: 0.914, 0.925, 0.937, 1
+            size_hint: 1, 0.15
+            pos_hint: {'top': 0.74}
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.06
+            pos_hint: {'top': 0.625, 'center_x': 0.5}
+
+            ToggleButton:
+                id: low_cat
+                text: 'Baja'
+                group: 'category'
+                state: 'down'
+                font_name: 'Noto'
+                font_size: 24
+                color: 0.914, 0.925, 0.937, 1
+                background_color: 0.424, 0.459, 0.49, 1
+                background_normal: ''
+
+            ToggleButton:
+                text: 'Media'
+                group: 'category'
+                font_name: 'Noto'
+                font_size: 24
+                color: 0.914, 0.925, 0.937, 1
+                background_color: 0.424, 0.459, 0.49, 1
+                background_normal: ''
+
+            ToggleButton:
+                text: 'Alta'
+                group: 'category'
+                font_name: 'Noto'
+                font_size: 24
+                color: 0.914, 0.925, 0.937, 1
+                background_color: 0.424, 0.459, 0.49, 1
+                background_normal: ''
 
         BigButton:
             text: ' Añadir'
